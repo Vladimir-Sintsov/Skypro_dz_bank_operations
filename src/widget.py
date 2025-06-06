@@ -1,4 +1,7 @@
-from src.masks import get_mask_card_number, get_mask_account
+from datetime import datetime
+
+from src.masks import get_mask_account
+from src.masks import get_mask_card_number
 
 
 def mask_account_card(info: str) -> str:
@@ -9,7 +12,7 @@ def mask_account_card(info: str) -> str:
     'Visa Platinum 7000792289606361' → 'Visa Platinum 7000 79** **** 6361'
     'Счет 73654108430135874305' → 'Счет **4305'
     """
-    parts = info.rsplit(' ', 1)
+    parts = info.rsplit(" ", 1)
     if len(parts) != 2:
         raise ValueError("Строка должна содержать описание и номер, разделённые пробелом")
 
@@ -22,3 +25,12 @@ def mask_account_card(info: str) -> str:
         return f"{label} {masked}"
     else:
         raise ValueError("Не найден корректный номер карты или счёта")
+
+
+def get_date(iso_string: str) -> str:
+    """
+    Преобразует строку с датой из формата 'YYYY-MM-DDTHH:MM:SS.ssssss'
+    в формат 'ДД.ММ.ГГГГ'.
+    """
+    dt = datetime.fromisoformat(iso_string)
+    return dt.strftime("%d.%m.%Y")
