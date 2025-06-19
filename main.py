@@ -14,7 +14,6 @@ print(mask_account_card("счет 73654108430135874305"))
 print(get_date("2024-03-11T02:26:18.671407"))
 
 executed_operations = filter_by_state(operation_list)
-
 sorted_operations = sort_by_date(executed_operations)
 
 for op in sorted_operations:
