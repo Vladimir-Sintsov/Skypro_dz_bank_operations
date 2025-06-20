@@ -1,3 +1,6 @@
+from src.processing import filter_by_state
+from src.processing import transaction_list
+from src.processing import sort_by_date
 from src.widget import get_date
 from src.widget import mask_account_card
 
@@ -11,3 +14,9 @@ print(mask_account_card("Visa Gold 5999414228426353"))
 print(mask_account_card("счет 73654108430135874305"))
 
 print(get_date("2024-03-11T02:26:18.671407"))
+
+executed_operations = filter_by_state(transaction_list)
+sorted_operations = sort_by_date(executed_operations)
+
+for op in sorted_operations:
+    print(op)
