@@ -1,10 +1,15 @@
+from typing import Any
+from typing import Dict
+from typing import List
+
 import pytest
 
-from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
+from src.generators import card_number_generator
+from src.generators import filter_by_currency
+from src.generators import transaction_descriptions
 
 
-
-def test_filter_by_currency(transactions_list):
+def test_filter_by_currency(transactions_list: List[Dict[str, Any]]) -> None:
     gen = filter_by_currency(transactions_list, "USD")
     assert next(gen) == {
         "id": 939719570,
@@ -26,33 +31,33 @@ def test_filter_by_currency(transactions_list):
     }
 
 
-def test_filter_by_invalid_currency(transactions_list_invalid):
+def test_filter_by_invalid_currency(transactions_list_invalid: List[Dict[str, Any]]) -> None:
     with pytest.raises(ValueError) as exc_info:
         list(filter_by_currency(transactions_list_invalid, "USD"))
     assert exc_info.value.args[0] == "Операции в заданной валюте не найдены"
 
 
-def test_filter_by_currency_without_key(transactions_list_without_key):
+def test_filter_by_currency_without_key(transactions_list_without_key: List[Dict[str, Any]]) -> None:
     with pytest.raises(KeyError) as exc_info:
         list(filter_by_currency(transactions_list_without_key, "RUB"))
     assert exc_info.value.args[0] == "Информация о валюте отсутствует"
 
 
-def test_filter_by_invalid_currency_empty(transactions_list_empty):
+def test_filter_by_invalid_currency_empty(transactions_list_empty: List[Dict[str, Any]]) -> None:
     with pytest.raises(ValueError) as exc_info:
         list(filter_by_currency(transactions_list_empty, "RUB"))
     assert str(exc_info.value) == "Список транзакций пуст"
 
 
-def test_transaction_descriptions(transactions_list):
+def test_transaction_descriptions(transactions_list: List[Dict[str, Any]]) -> None:
     gen = transaction_descriptions(transactions_list)
     assert next(gen) == "Перевод организации"
     assert next(gen) == "Перевод со счета на счет"
     assert next(gen) == "Перевод со счета на счет"
 
 
-def test_transaction_descriptions_missing_key():
-    transactions = [
+def test_transaction_descriptions_missing_key() -> None:
+    transactions: List[Dict[str, Any]] = [
         {"id": 1},
         {"id": 2, "description": "Операция по карте"},
     ]
@@ -60,7 +65,7 @@ def test_transaction_descriptions_missing_key():
     assert result == ["", "Операция по карте"]
 
 
-def test_transaction_descriptions_empty(transactions_list_empty):
+def test_transaction_descriptions_empty(transactions_list_empty: List[Dict[str, Any]]) -> None:
     assert list(transaction_descriptions(transactions_list_empty)) == []
 
 
@@ -86,18 +91,18 @@ def test_transaction_descriptions_empty(transactions_list_empty):
         )
     ],
 )
-def test_card_number_generator(start, stop, expected_numbers):
+def test_card_number_generator(start: int, stop: int, expected_numbers: List[str]) -> None:
     number = list(card_number_generator(start, stop))
     assert number == expected_numbers
 
 
-def test_card_number_generator_finally():
+def test_card_number_generator_finally() -> None:
     number = card_number_generator(9999999999999998, 9999999999999999)
     assert next(number) == "9999 9999 9999 9998"
     assert next(number) == "9999 9999 9999 9999"
 
 
-def test_card_number_generator_finally_else():
+def test_card_number_generator_finally_else() -> None:
     number = card_number_generator(9999999999999999, 10000000000000000000)
     assert next(number) == "9999 9999 9999 9999"
 
@@ -109,18 +114,18 @@ def test_card_number_generator_finally_else():
         (102, 103, ["0000 0000 0000 0102", "0000 0000 0000 0103"]),
     ],
 )
-def test_card_gen_use_parametrize(start, end, expected_numbers):
+def test_card_gen_use_parametrize(start: int, end: int, expected_numbers: List[str]) -> None:
     result = list(card_number_generator(start, end))
     assert result == expected_numbers
 
 
-def test_card_gen_invalid_parameters():
+def test_card_gen_invalid_parameters() -> None:
     with pytest.raises(ValueError) as exc_info:
         list(card_number_generator(2, 1))
     assert str(exc_info.value) == "Ошибка: Start не должен превышать Stop"
 
 
-def test_filter_by_currency_with_xlsx_csv(csv_data_result):
+def test_filter_by_currency_with_xlsx_csv(csv_data_result: List[Dict[str, Any]]) -> None:
     gen = filter_by_currency(csv_data_result, "COP")
     assert next(gen) == {
         "amount": "29740",
@@ -134,8 +139,9 @@ def test_filter_by_currency_with_xlsx_csv(csv_data_result):
         "to": "Discover 0720428384694643",
     }
 
+
 @pytest.fixture
-def csv_data_result():
+def csv_data_result() -> List[Dict[str, Any]]:
     return [
         {
             "id": "650703",
@@ -160,4 +166,3 @@ def csv_data_result():
             "description": "Перевод с карты на карту",
         },
     ]
-
