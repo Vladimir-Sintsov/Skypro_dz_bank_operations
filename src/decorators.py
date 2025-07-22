@@ -1,7 +1,11 @@
 import functools
-from typing import Callable, Optional, Any, TypeVar
+from typing import Any
+from typing import Callable
+from typing import Optional
+from typing import TypeVar
 
 F = TypeVar("F", bound=Callable[..., Any])
+
 
 def log(filename: Optional[str] = None) -> Callable[[F], F]:
     """
@@ -18,6 +22,7 @@ def log(filename: Optional[str] = None) -> Callable[[F], F]:
     Возвращает:
         function: Обёрнутая функция с логированием.
     """
+
     def decorator(func: F) -> F:
         @functools.wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
@@ -41,8 +46,7 @@ def log(filename: Optional[str] = None) -> Callable[[F], F]:
                 return result
             except Exception as e:
                 error_type = type(e).__name__
-                log_output = (f"{func.__name__} error: {error_type}. "
-                              f"Inputs: {args}, {kwargs}")
+                log_output = f"{func.__name__} error: {error_type}. " f"Inputs: {args}, {kwargs}"
                 raise
             finally:
                 if filename:
@@ -50,5 +54,7 @@ def log(filename: Optional[str] = None) -> Callable[[F], F]:
                         f.write(log_output + "\n")
                 else:
                     print(log_output)
+
         return wrapper  # type: ignore
+
     return decorator
