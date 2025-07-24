@@ -194,3 +194,81 @@ def transactions_list_without_key() -> list[dict[str, Any]]:
 @pytest.fixture
 def transactions_list_empty() -> List[Dict[str, Any]]:
     return []
+
+
+@pytest.fixture
+def transaction_for_conversion() -> Dict[str, Any]:
+    return {
+        "id": 361044570,
+        "state": "EXECUTED",
+        "date": "2018-03-02T02:03:11.563721",
+        "operationAmount": {"amount": "5", "currency": {"name": "USD", "code": "USD"}},
+        "description": "Перевод организации",
+        "from": "Счет 96008924215040031147",
+        "to": "Счет 30377212495530283001",
+    }
+
+
+@pytest.fixture
+def result_of_conversion() -> str:
+    return """{
+  "date": "2018-02-22",
+  "historical": "",
+  "info": {
+    "rate": 148.972231,
+    "timestamp": 1519328414
+  },
+  "query": {
+    "amount": 25,
+    "from": "USD",
+    "to": "RUB"
+  },
+  "result": 531.307615,
+  "success": true
+}"""
+
+
+@pytest.fixture
+def result_of_conversion_without_result() -> str:
+    return """{
+  "date": "2018-02-22",
+  "historical": "",
+  "info": {
+    "rate": 148.972231,
+    "timestamp": 1519328414
+  },
+  "query": {
+    "amount": 25,
+    "from": "USD",
+    "to": "RUB"
+  },
+  "success": true
+}"""
+
+
+@pytest.fixture
+def transaction_for_conversion_invalid() -> Dict[str, Any]:
+    return {
+        "id": 361044570,
+        "state": "EXECUTED",
+        "date": "2018-03-02T02:03:11.563721",
+        "operationAmount": {
+            "amount": "5",
+        },
+        "description": "Перевод организации",
+        "from": "Счет 96008924215040031147",
+        "to": "Счет 30377212495530283001",
+    }
+
+
+@pytest.fixture
+def transaction_rub() -> Dict[str, Any]:
+    return {
+        "id": 123456789,
+        "state": "EXECUTED",
+        "date": "2023-07-24T10:00:00",
+        "operationAmount": {"amount": "43318.34", "currency": {"name": "RUB", "code": "RUB"}},
+        "description": "Оплата услуг",
+        "from": "Счет 12345678901234567890",
+        "to": "Счет 09876543210987654321",
+    }

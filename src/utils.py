@@ -1,5 +1,8 @@
 import json
-from typing import Optional, List, Dict, Any
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
 
 
 def get_transaction_data(json_file: Optional[str] = None) -> List[Dict[str, Any]]:
