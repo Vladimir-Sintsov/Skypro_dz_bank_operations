@@ -1,6 +1,9 @@
+from typing import Any
+from typing import Dict
+from typing import List
+from unittest.mock import Mock
 from unittest.mock import mock_open
-from unittest.mock import patch, Mock
-from typing import List, Dict, Any
+from unittest.mock import patch
 
 from src.utils import get_transaction_data
 

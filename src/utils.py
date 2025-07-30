@@ -1,7 +1,10 @@
 import json
 import logging
 import os
-from typing import Any, Dict, List, Optional
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
 
 """ Настройка логгера для модуля utils """
 
@@ -14,8 +17,8 @@ log_path: str = os.path.join(LOG_DIR, LOG_FILE)
 logger: logging.Logger = logging.getLogger("utils")
 logger.setLevel(logging.DEBUG)
 
-file_handler = logging.FileHandler(log_path, mode='w')
-file_formatter = logging.Formatter('%(asctime)s - %(module)s - %(levelname)s - %(message)s')
+file_handler = logging.FileHandler(log_path, mode="w")
+file_formatter = logging.Formatter("%(asctime)s - %(module)s - %(levelname)s - %(message)s")
 file_handler.setFormatter(file_formatter)
 
 if not logger.handlers:

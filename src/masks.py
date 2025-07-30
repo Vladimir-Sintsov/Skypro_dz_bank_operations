@@ -13,8 +13,8 @@ logger: logging.Logger = logging.getLogger("masks")
 logger.setLevel(logging.DEBUG)
 
 
-file_handler = logging.FileHandler(log_path, mode='w')  # перезапись при каждом запуске
-file_formatter = logging.Formatter('%(asctime)s - %(module)s - %(levelname)s - %(message)s')
+file_handler = logging.FileHandler(log_path, mode="w")  # перезапись при каждом запуске
+file_formatter = logging.Formatter("%(asctime)s - %(module)s - %(levelname)s - %(message)s")
 file_handler.setFormatter(file_formatter)
 
 if not logger.handlers:

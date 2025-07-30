@@ -1,7 +1,9 @@
 import json
+from typing import Any
+from typing import Dict
+from typing import List
 from unittest.mock import Mock
 from unittest.mock import patch
-from typing import Dict, Any, List
 
 import pytest
 
@@ -9,11 +11,7 @@ from src.external_api import get_amount
 
 
 @patch("requests.get")
-def test_get_amount(
-    mock_get: Mock,
-    transaction_for_conversion: Dict[str, Any],
-    result_of_conversion: str
-) -> None:
+def test_get_amount(mock_get: Mock, transaction_for_conversion: Dict[str, Any], result_of_conversion: str) -> None:
     mock_get.return_value.status_code = 200
     mock_get.return_value.json.return_value = json.loads(result_of_conversion)
 
@@ -23,9 +21,7 @@ def test_get_amount(
 
 @patch("requests.get")
 def test_get_amount_bad_status_code(
-    mock_get: Mock,
-    transaction_for_conversion: Dict[str, Any],
-    result_of_conversion: str
+    mock_get: Mock, transaction_for_conversion: Dict[str, Any], result_of_conversion: str
 ) -> None:
     mock_response = Mock()
     mock_response.status_code = 404
@@ -47,9 +43,7 @@ def test_get_amount_with_rub(transactions_list: List[Dict[str, Any]]) -> None:
 
 @patch("requests.get")
 def test_get_amount_invalid_result(
-    mock_get: Mock,
-    transaction_for_conversion: Dict[str, Any],
-    result_of_conversion_without_result: str
+    mock_get: Mock, transaction_for_conversion: Dict[str, Any], result_of_conversion_without_result: str
 ) -> None:
     mock_get.return_value.status_code = 200
     mock_get.return_value.json.return_value = json.loads(result_of_conversion_without_result)
@@ -61,10 +55,7 @@ def test_get_amount_invalid_result(
 
 
 @patch("requests.get")
-def test_get_amount_with_key_error(
-    mock_get: Mock,
-    transaction_for_conversion_invalid: Dict[str, Any]
-) -> None:
+def test_get_amount_with_key_error(mock_get: Mock, transaction_for_conversion_invalid: Dict[str, Any]) -> None:
     with pytest.raises(KeyError) as exc_info:
         get_amount(transaction_for_conversion_invalid)
 
