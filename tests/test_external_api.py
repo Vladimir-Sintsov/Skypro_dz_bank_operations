@@ -6,6 +6,7 @@ from unittest.mock import Mock
 from unittest.mock import patch
 
 import pytest
+import requests
 
 from src.external_api import get_amount
 
@@ -27,7 +28,7 @@ def test_get_amount_bad_status_code(
     mock_response.status_code = 404
     mock_response.reason = "Not Found"
     mock_response.json.return_value = json.loads(result_of_conversion)
-
+    mock_response.raise_for_status.side_effect = requests.HTTPError("404 Client Error")
     mock_get.return_value = mock_response
 
     with pytest.raises(ConnectionError) as exc_info:
