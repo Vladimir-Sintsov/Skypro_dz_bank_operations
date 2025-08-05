@@ -272,3 +272,20 @@ def transaction_rub() -> Dict[str, Any]:
         "from": "Счет 12345678901234567890",
         "to": "Счет 09876543210987654321",
     }
+
+
+@pytest.fixture
+def excel_data() -> Dict[str, List[Any]]:
+    return {
+        "id": [650703, 3598919],
+        "state": ["EXECUTED", "EXECUTED"],
+        "date": ["2023-09-05T11:30:32Z;16210", "2020-12-06T23:00:58Z;29740"],
+        "amount": ["Sol", "PEN"],
+    }
+
+@pytest.fixture
+def excel_data_result() -> List[Dict[str, Any]]:
+    return [
+        {"id": 650703, "state": "EXECUTED", "date": "2023-09-05T11:30:32Z;16210", "amount": "Sol"},
+        {"id": 3598919, "state": "EXECUTED", "date": "2020-12-06T23:00:58Z;29740", "amount": "PEN"},
+    ]
