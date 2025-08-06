@@ -283,6 +283,7 @@ def excel_data() -> Dict[str, List[Any]]:
         "amount": ["Sol", "PEN"],
     }
 
+
 @pytest.fixture
 def excel_data_result() -> List[Dict[str, Any]]:
     return [

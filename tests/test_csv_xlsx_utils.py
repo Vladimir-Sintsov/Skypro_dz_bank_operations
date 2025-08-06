@@ -85,7 +85,11 @@ def test_read_csv_not_path() -> None:
 
 
 @patch("pandas.read_excel")
-def test_get_excel(mock_read_excel: Any, excel_data: Dict[str, List[Any]], excel_data_result: List[Dict[str, Any]]) -> None:
+def test_get_excel(
+    mock_read_excel: Any,
+    excel_data: Dict[str, List[Any]],
+    excel_data_result: List[Dict[str, Any]]
+) -> None:
     """
     Тест функции get_excel: проверяет чтение Excel и возврат DataFrame.
     Мокирует pandas.read_excel для возврата фикстурных данных.
@@ -121,11 +125,11 @@ def test_get_excel_no_path() -> None:
 
 
 def test_get_excel_invalid_path() -> None:
-     """
-     Тестирует функцию get_excel при неправильном или несуществующем файле.
+    """
+    Тестирует функцию get_excel при неправильном или несуществующем файле.
 
-     Ожидается, что функция вернет пустой список.
-     """
-     result: List[Dict[str, Any]] = get_excel("files/some_file.xlsx")
+    Ожидается, что функция вернет пустой список.
+    """
+    result: List[Dict[str, Any]] = get_excel("files/some_file.xlsx")
 
-     assert result == []
+    assert result == []
