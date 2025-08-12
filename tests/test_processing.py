@@ -40,7 +40,7 @@ def test_sort_by_date(unsorted_dates: List[Dict[str, Any]]) -> None:
         {"id": 4, "date": "2018-09-12T21:27:25.241689"},
         {"id": 2, "date": "2018-06-30T02:08:58.425572"},
     ]
-    assert sort_by_date(unsorted_dates) == expected_sorted_desc
+    assert sort_by_date(unsorted_dates, reverse=True) == expected_sorted_desc
 
     expected_sorted_asc = [
         {"id": 2, "date": "2018-06-30T02:08:58.425572"},
@@ -48,7 +48,8 @@ def test_sort_by_date(unsorted_dates: List[Dict[str, Any]]) -> None:
         {"id": 1, "date": "2018-10-14T08:21:33.419441"},
         {"id": 3, "date": "2019-07-03T18:35:29.512364"},
     ]
-    assert sort_by_date(unsorted_dates, reverse_list=False) == expected_sorted_asc
+    # сортировка по возрастанию (от старых к новым)
+    assert sort_by_date(unsorted_dates, reverse=False) == expected_sorted_asc
 
 
 def test_sort_same_dates(same_date: List[Dict[str, Any]]) -> None:
