@@ -291,8 +291,9 @@ def excel_data_result() -> List[Dict[str, Any]]:
         {"id": 3598919, "state": "EXECUTED", "date": "2020-12-06T23:00:58Z;29740", "amount": "PEN"},
     ]
 
+
 @pytest.fixture
-def result_transactions_filter():
+def result_transactions_filter() -> List[Dict[str, Any]]:
     return [
         {
             "id": 142264268,
@@ -316,7 +317,7 @@ def result_transactions_filter():
 
 
 @pytest.fixture
-def category_list():
+def category_list() -> list[str]:
     return [
         "Перевод организации",
         "Перевод с карты на счет",

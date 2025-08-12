@@ -1,6 +1,8 @@
+from typing import Any
+from typing import Dict
+from typing import List
 from unittest.mock import mock_open
 from unittest.mock import patch
-from typing import List, Dict, Any
 
 import pandas as pd
 
@@ -86,9 +88,7 @@ def test_read_csv_not_path() -> None:
 
 @patch("pandas.read_excel")
 def test_get_excel(
-    mock_read_excel: Any,
-    excel_data: Dict[str, List[Any]],
-    excel_data_result: List[Dict[str, Any]]
+    mock_read_excel: Any, excel_data: Dict[str, List[Any]], excel_data_result: List[Dict[str, Any]]
 ) -> None:
     """
     Тест функции get_excel: проверяет чтение Excel и возврат DataFrame.

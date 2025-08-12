@@ -1,8 +1,8 @@
+import re
 from datetime import datetime
 from typing import Any
 from typing import Dict
 from typing import List
-import re
 
 
 def filter_by_state(transaction: List[Dict[str, Any]], state: str = "EXECUTED") -> List[Dict[str, Any]]:
@@ -30,7 +30,6 @@ def sort_by_date(transaction: List[Dict[str, Any]], reverse_list: bool = True) -
                 continue
 
     return sorted(valid_items, key=lambda items: datetime.fromisoformat(items["date"]), reverse=reverse_list)
-
 
 
 def get_searched_transactions(transactions: list, search_str: str) -> List[dict]:

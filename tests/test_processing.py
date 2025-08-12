@@ -5,10 +5,9 @@ from typing import List
 import pytest
 
 from src.processing import filter_by_state
-from src.processing import sort_by_date
 from src.processing import get_searched_transactions
 from src.processing import get_transactions_count_by_category
-
+from src.processing import sort_by_date
 
 
 @pytest.mark.parametrize(
@@ -66,64 +65,43 @@ def test_sort_with_invalid_dates(unsorted_invalid_dates: List[Dict[str, Any]]) -
 
 
 def test_get_searched_transactions(
-        transactions_list: List[Dict[str, Any]],
-        result_transactions_filter: List[Dict[str, Any]]
+    transactions_list: List[Dict[str, Any]], result_transactions_filter: List[Dict[str, Any]]
 ) -> None:
     result = get_searched_transactions(transactions_list, "Счет")
     assert result == result_transactions_filter
 
 
-def test_get_searched_transaction_empty_list(
-        transactions_list_empty: List[Dict[str, Any]]
-) -> None:
+def test_get_searched_transaction_empty_list(transactions_list_empty: List[Dict[str, Any]]) -> None:
     result = get_searched_transactions(transactions_list_empty, "Счет")
     assert result == []
 
 
-def test_get_searched_transaction_empty_search(
-        transactions_list: List[Dict[str, Any]]
-) -> None:
+def test_get_searched_transaction_empty_search(transactions_list: List[Dict[str, Any]]) -> None:
     result = get_searched_transactions(transactions_list, "")
     assert result == []
 
 
-def test_get_searched_transaction_invalid_search(
-        transactions_list: List[Dict[str, Any]]
-) -> None:
+def test_get_searched_transaction_invalid_search(transactions_list: List[Dict[str, Any]]) -> None:
     result = get_searched_transactions(transactions_list, "приветик!")
     assert result == []
 
 
-def test_get_searched_transaction_without_transactions(
-        sample_data: List[Dict[str, Any]]
-) -> None:
+def test_get_searched_transaction_without_transactions(sample_data: List[Dict[str, Any]]) -> None:
     result = get_searched_transactions(sample_data, "пупупу")
     assert result == []
 
 
-def test_get_transactions_count_by_category(
-        transactions_list: List[Dict[str, Any]],
-        category_list: List[str]
-) -> None:
+def test_get_transactions_count_by_category(transactions_list: List[Dict[str, Any]], category_list: List[str]) -> None:
     result = get_transactions_count_by_category(transactions_list, category_list)
-    assert result == {
-        "Перевод организации": 2,
-        "Перевод с карты на карту": 1,
-        "Перевод со счета на счет": 2
-    }
+    assert result == {"Перевод организации": 2, "Перевод с карты на карту": 1, "Перевод со счета на счет": 2}
 
 
-def test_get_transactions_count(
-        transactions_list_empty: List[Dict[str, Any]],
-        category_list: List[str]
-) -> None:
+def test_get_transactions_count(transactions_list_empty: List[Dict[str, Any]], category_list: List[str]) -> None:
     result = get_transactions_count_by_category(transactions_list_empty, category_list)
     assert result == {}
 
 
-def test_get_transactions_without_category(
-        transactions_list: List[Dict[str, Any]]
-) -> None:
+def test_get_transactions_without_category(transactions_list: List[Dict[str, Any]]) -> None:
     with pytest.raises(Exception) as exc_info:
         get_transactions_count_by_category(transactions_list, [])
 
