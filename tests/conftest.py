@@ -290,3 +290,37 @@ def excel_data_result() -> List[Dict[str, Any]]:
         {"id": 650703, "state": "EXECUTED", "date": "2023-09-05T11:30:32Z;16210", "amount": "Sol"},
         {"id": 3598919, "state": "EXECUTED", "date": "2020-12-06T23:00:58Z;29740", "amount": "PEN"},
     ]
+
+@pytest.fixture
+def result_transactions_filter():
+    return [
+        {
+            "id": 142264268,
+            "state": "EXECUTED",
+            "date": "2019-04-04T23:20:05.206878",
+            "operationAmount": {"amount": "79114.93", "currency": {"name": "USD", "code": "USD"}},
+            "description": "Перевод со счета на счет",
+            "from": "Счет 19708645243227258542",
+            "to": "Счет 75651667383060284188",
+        },
+        {
+            "id": 873106923,
+            "state": "EXECUTED",
+            "date": "2019-03-23T01:09:46.296404",
+            "operationAmount": {"amount": "43318.34", "currency": {"name": "руб.", "code": "RUB"}},
+            "description": "Перевод со счета на счет",
+            "from": "Счет 44812258784861134719",
+            "to": "Счет 74489636417521191160",
+        },
+    ]
+
+
+@pytest.fixture
+def category_list():
+    return [
+        "Перевод организации",
+        "Перевод с карты на счет",
+        "Перевод с карты на карту",
+        "Перевод со счета на счет",
+        "Открытие вклада",
+    ]
